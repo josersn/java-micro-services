@@ -1,6 +1,13 @@
 package com.javaservice.customer;
 
-public record CustomerService() {
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository customerRepository;
 
     public void create(CustomerRequest request) {
         Customer customer = Customer.builder()
@@ -9,6 +16,7 @@ public record CustomerService() {
                 .email(request.email())
                 .build();
 
+        customerRepository.save(customer);
     }
 
 }
